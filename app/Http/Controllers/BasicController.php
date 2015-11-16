@@ -38,36 +38,38 @@ class BasicController extends Controller {
                 }
             }
         }
-        
         echo '<br />';
         $this->_spiral($rows, $cols, $array1);
     }
 
     private function _spiral($rows, $cols, array $array) {
-        $m = 0;
-        $n = 0;
-        $rows--;
-        $cols--;
+
+        $offset = 0;
         
         echo 'Rezultal: ';
         
-        while ($m <= $rows && $n <= $cols) {
-            for ($i = $n; $i <= $cols; ++$i) {
-                print($array[$m][$i] . ' ');
+        while($offset < $rows){
+
+            for($col = $offset; $col < $cols; $col++){
+                print($array[$offset][$col]. ' ');
             }
-            $m++;
-            for ($i = $m; $i <= $rows; $i++) {
-                print($array[$i][$cols] . ' ');
-            }
+
+            if($offset == $rows - 1) break;
             $cols--;
-            for ($i = $cols; $i >= $n; $i--) {
-                print($array[$rows][$i] . ' ');
+            for($row = $offset+1; $row < $rows; $row++){
+                print($array[$row][$cols]. ' ');
             }
+            
             $rows--;
-            for ($i = $rows; $i >= $m; $i--) {
-                print($array[$i][$n] . ' ');
+            for($col = $cols - 1; $col > $offset; $col--){
+                print($array[$rows][$col]. ' ');
             }
-            $n++;
+            
+            for($row = $rows; $row > $offset; $row--){
+                print($array[$row][$offset]. ' ');
+            }
+            
+            $offset++;
         }
     }
     
